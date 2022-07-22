@@ -1,0 +1,116 @@
+﻿@model IdentitySample.Models.LoginViewModel
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.rtl.min.css">
+    <!-- Animate Min CSS -->
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/fonts/flaticon.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/css/boxicons.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <!-- Owl Carousel Min CSS -->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <!-- Nice Select Min CSS -->
+    <link rel="stylesheet" href="~/css/nice-select.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/css/meanmenu.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- RTL CSS -->
+    <link rel="stylesheet" href="~/css/rtl.css">
+</head>
+<body>
+    <div class="user-area pt-100 pb-70">
+        <div class="container">
+            <div class="user-width">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="user-content">
+                            <h2>سلام</h2>
+                            <p>شما به راحتی در هر زمانی میتوانید در سایت ما ثبت نام کنید</p>
+                            <a href="~/Accounting/Signup" class="user-btn">ثبت نام</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="user-form">
+                            <h2>ورود</h2>
+                            <form method="post">
+                                <div class="row">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="col-lg-12 ">
+                                        <div class="form-group">
+                                            <i class='bx bx-user'></i>
+                                            <input type="text" class="form-control" asp-for="Email" name="Email" required data-error="ایمیل خود را وارد نمایید" placeholder="ایمیل ">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <i class='bx bx-lock'></i>
+                                            <input class="form-control" asp-for="Password" type="password" name="Password" placeholder="رمزعبور">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" asp-for="ReturnUrl" />
+                                    <div class="col-lg-12 form-condition">
+                                        <div class="agree-label">
+                                            <input type="checkbox" asp-for="RememberMe">
+                                            <label for="chb1">
+                                                مرا به خاطر بسپار<a class="forget" href="forget-password.html">فراموشی رمز عبور؟</a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 ">
+                                        <button type="submit" class="default-btn btn-bg-three">
+                                            ورود
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery Min JS -->
+    <script src="~/js/jquery-3.5.1.slim.min.js"></script>
+    <!-- Popper Min JS -->
+    <!-- <script src=" js/popper.min.js"></script> -->
+    <!-- Bootstrap Min JS -->
+    <!--<script src=" js/bootstrap.min.js"></script>-->
+    <script src="~/js/bootstrap.bundle.js"></script>
+    <!-- Magnific Popup Min JS -->
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <!-- Owl Carousel Min JS -->
+    <script src="~/js/owl.carousel.min.js"></script>
+    <!-- Nice Select Min JS -->
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <!-- Wow Min JS -->
+    <script src="~/js/wow.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="~/js/meanmenu.js"></script>
+    <!-- Ajaxchimp Min JS -->
+    <script src="~/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator Min JS -->
+    <script src="~/js/form-validator.min.js"></script>
+    <!-- Contact Form JS -->
+    <script src="~/js/contact-form-script.js"></script>
+    <!-- Mixitup Min JS -->
+    <script src="~/js/mixitup.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/js/custom.js"></script>
+</body>
+</html>
