@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IdentitySample.Controllers
@@ -21,8 +22,6 @@ namespace IdentitySample.Controllers
             signInManager = SignInManager;
             this.roleManager = roleManager;
         }
-
-
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -41,6 +40,7 @@ namespace IdentitySample.Controllers
 
                 Microsoft.AspNetCore.Identity.SignInResult result =
                 await signInManager.PasswordSignInAsync(login.Email, login.Password, login.RememberMe, false);
+                await addClaim(login.Email);
                 //IdentityUser model = await userManager.FindByIdAsync(login.user.Id);
                 //if (model.LockoutEnabled == true)
                 //{
@@ -93,6 +93,17 @@ namespace IdentitySample.Controllers
             }
             return View(userViewModel);
 
+        }
+        public async Task addClaim(string email)
+        {
+            IdentityUser user = await userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                await userManager.AddClaimsAsync(user, new Claim[]
+            {
+                   new Claim("Ban Status",user.LockoutEnabled.ToString()),
+            });
+            }
         }
 
         public async Task<IActionResult> LogOut()

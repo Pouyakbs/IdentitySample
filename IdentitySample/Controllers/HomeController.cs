@@ -1,4 +1,5 @@
 ﻿using IdentitySample.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,7 +23,7 @@ namespace IdentitySample.Controllers
         {
             return View();
         }
-
+        [Authorize(policy: "Ban")]
         public IActionResult Privacy()
         {
             return View();

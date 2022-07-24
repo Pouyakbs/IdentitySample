@@ -55,6 +55,13 @@ namespace IdentitySample
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("Ban", policy => {
+                    policy.RequireClaim("Ban Status" , "False");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
