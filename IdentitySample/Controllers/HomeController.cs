@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace IdentitySample.Controllers
 {
+    [Authorize(Policy = "RestrictIP")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

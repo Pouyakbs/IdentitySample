@@ -1,10 +1,15 @@
+using IdentitySample.AuthorizationRequirement;
 using IdentitySample.Data;
+using IdentitySample.Handlers;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +36,7 @@ namespace IdentitySample
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IAuthorizationHandler, IPAddressHandler>();
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
@@ -40,6 +46,11 @@ namespace IdentitySample
 
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.Configure<ApplicationOptions>(Configuration.GetSection("ApplicationOptions"));
+
+            var applicationOptions = Configuration
+                .GetSection("ApplicationOptions")
+                .Get<ApplicationOptions>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -55,6 +66,15 @@ namespace IdentitySample
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddHttpContextAccessor();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RestrictIP", policy =>
+                    policy.Requirements.Add(new IPRequirement(applicationOptions)));
+
+                options.AddPolicy("DomainValidator", policy =>
+                    policy.Requirements.Add(new InternalUserRequirement()));
+            });
 
             services.AddAuthorization(option =>
             {

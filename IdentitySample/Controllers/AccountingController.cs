@@ -37,7 +37,6 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 Microsoft.AspNetCore.Identity.SignInResult result =
                 await signInManager.PasswordSignInAsync(login.Email, login.Password, login.RememberMe, false);
                 await addClaim(login.Email);
