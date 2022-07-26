@@ -1,6 +1,8 @@
 using IdentitySample.AuthorizationRequirement;
 using IdentitySample.Data;
 using IdentitySample.Handlers;
+using IdentitySample.Logging.Interface;
+using IdentitySample.Logging.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -14,8 +16,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,6 +41,7 @@ namespace IdentitySample
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton<IAuthorizationHandler, IPAddressHandler>();
+            services.AddScoped(typeof(ILogRepository), typeof(LogRepository));
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
@@ -85,7 +90,7 @@ namespace IdentitySample
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -98,6 +103,10 @@ namespace IdentitySample
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var path = Directory.GetCurrentDirectory();
+            loggerFactory.AddFile($"{path}\\Logs\\Log.txt");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

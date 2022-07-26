@@ -1,4 +1,5 @@
-﻿using IdentitySample.Models;
+﻿using IdentitySample.Logging.Interface;
+using IdentitySample.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace IdentitySample.Controllers
 {
     [Authorize(Policy = "RestrictIP")]
+    [ServiceFilter(typeof(ILogRepository))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -20,16 +20,19 @@ namespace IdentitySample.Handlers
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IPRequirement requirement)
         {
             var authFilterCtx = httpContextAccessor.HttpContext;
-            var ipAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress;
+            var ipAddress = "192.168.1.105";
 
             List<string> whiteListIPList = requirement.Whitelist;
             var isInwhiteListIPList = whiteListIPList
                 .Where(a => IPAddress.Parse(a)
                 .Equals(ipAddress))
                 .Any();
-            if (isInwhiteListIPList)
+            foreach (var item in whiteListIPList)
             {
-                context.Succeed(requirement);
+                if (item != ipAddress)
+                {
+                    context.Succeed(requirement);
+                }
             }
             return Task.CompletedTask;
         }

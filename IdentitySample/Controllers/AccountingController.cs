@@ -1,4 +1,5 @@
-﻿using IdentitySample.Models;
+﻿using IdentitySample.Logging.Interface;
+using IdentitySample.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace IdentitySample.Controllers
 {
+    [ServiceFilter(typeof(ILogRepository))]
     public class AccountingController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;

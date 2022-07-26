@@ -1,4 +1,5 @@
 ﻿using IdentitySample.Data;
+using IdentitySample.Logging.Interface;
 using IdentitySample.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace IdentitySample.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
+    [ServiceFilter(typeof(ILogRepository))]
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
